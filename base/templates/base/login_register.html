@@ -1,0 +1,17 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <label>Enter username:</label>
+        <input type="text" name="username" placeholder="Enter username"></input>
+        <label>Enter password:</label>
+        <input type="password" name="password" placeholder="Enter password"> </input>
+        <button type="submit">Submit</button>
+
+    </form>
+</div>
+
+{% include 'footer.html' %}
