@@ -1,17 +1,53 @@
 {% include 'header.html' %}
 {% include 'navbar.html' %}
 
-<div class="card">
-    <div class="card-header">
-      {{room.name}}
+
+<style>
+  .room-container{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+  }
+</style>
+
+<div class="room-container">
+
+  <div>
+
+    <h1>{{room.name}}</h1>
+    <p>{{room.description}}</p>
+
+    <div class="comment-wrapper">
+
+      <h3>Conversation</h3>
+      <hr>
+
+      {% for message in room_messages %}
+      
+      <div>
+        <small>@{{message.user}}   {{message.created|timesince}} ago</small>
+        <p>{{message.body}}</p>
+        <hr>
+      </div>
+
+      {% endfor %}
     </div>
-    <div class="card-body">
-      <h5 class="card-title">@{{room.host.name}}</h5>
-      <h5 class="card-title"></h5>
-      <h5 class="card-title"></h5>
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+
+    {% if request.user.is_authenticated %}
+      <div class="comment-form">
+        <form method="POST" action="">
+          {% csrf_token %}
+          <input type="text" name="body" placeholder="Write your message here...">
+        </form>  
+      </div>
+      {% endif %}
+
     </div>
-  </div>
+
+    <div>
+      <h3>Participants</h3>
+      <hr>
+    </div>
+
+</div>
 
 {% include 'footer.html' %}
